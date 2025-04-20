@@ -1,12 +1,16 @@
 from fastapi import FastAPI, HTTPException
 from models import ChatResponse, ChatRequest, SingleTurnRequest
-from chat import multi_turn_chat, single_turn_chat
+from chat import multi_turn_chat, single_turn_chat, single_turn_chat_tools
 from session_manager import create_session, get_session, append_message, end_session
 from pydantic import BaseModel
 
 app = FastAPI()
 
 MODEL = "llama3.2"  # default model
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to the Saira!"}
 
 @app.post("/chat/new")
 def start_chat():
@@ -45,4 +49,11 @@ def end_chat(session_id: str):
 def single_chat(user_input: SingleChatInput):
     request = SingleTurnRequest(model=MODEL, prompt=user_input.message)
     reply = single_turn_chat(request)
+    return {"response": reply}
+
+
+@app.post("/planning", response_model=ChatResponse)
+def single_chat_planning(user_input: SingleChatInput):
+    request = SingleTurnRequest(model=MODEL, prompt=user_input.message)
+    reply = single_turn_chat_tools(request)
     return {"response": reply}
