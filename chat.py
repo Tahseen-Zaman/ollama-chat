@@ -107,7 +107,7 @@ async def single_turn_chat_tools(request: SingleTurnRequestV2):
                 if "message" in data and "content" in data["message"]:
                     full_message += data["message"]["content"]
 
-        return full_message, filtered_packages[10:]
+        return full_message, filtered_packages[:10]
 
     except json.JSONDecodeError:
         print("Error decoding JSON response from Ollama.")
