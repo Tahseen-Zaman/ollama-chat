@@ -1,4 +1,10 @@
-fastapi
+fastapi 
 uvicorn
 requests
 ollama
+sqlalchemy
+pydantic
+python-dotenv
+psycopg2
+asyncpg
+greenlet
