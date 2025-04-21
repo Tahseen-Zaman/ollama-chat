@@ -73,7 +73,7 @@ async def single_chat_planning(user_input: ChatInput, session_id: str):
     reply, packages = await single_turn_chat_tools(request)
     append_message(session_id, "assistant", reply)
 
-    return ChatWithPackagesResponse(response=reply, packages=packages[5:])
+    return ChatWithPackagesResponse(response=reply, packages=packages)
 
 
 @app.delete("/chat/end/{session_id}")
